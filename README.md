@@ -82,9 +82,32 @@ heading anchor links.
 
 ## MDX extras
 
-Beyond normal Markdown and GFM tables:
+Posts are MDX, so everything in GitHub-flavored Markdown works — headings,
+lists, tables, block quotes, footnotes — plus:
 
-- `<Callout>` and `<Callout type="warn">`
-- Code fences take `title="path"` and line highlights: ` ```ts title="a.ts" {3} `
+**Callouts**
 
-See `content/posts/2026-09-20-markdown-reference.mdx` for a live reference.
+```mdx
+<Callout>
+  A note, for an aside that would break the flow as a paragraph.
+</Callout>
+<Callout type="warn">
+  A warning. Use sparingly or people stop reading them.
+</Callout>
+```
+
+**Code blocks** take an optional title and highlighted lines:
+
+````mdx
+```ts title="src/lib/posts.ts" {3}
+export function getPost(slug: string) {
+  const posts = getAllPosts();
+  return posts.find((p) => p.slug === slug); // this line is highlighted
+}
+```
+````
+
+Headings automatically get anchor links, so readers can link to a section.
+
+Anything beyond this: write a React component in `src/components/` and add it to
+the `components` map in `src/components/mdx.tsx`, then use it directly in a post.

@@ -18,20 +18,34 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section>
-        <h2 className="mb-5 text-sm font-medium tracking-wide text-[var(--muted)] uppercase">
-          Recent writing
-        </h2>
-        <PostList posts={recent} />
-        {posts.length > recent.length && (
-          <Link
-            href="/blog"
-            className="mt-8 inline-block text-sm text-[var(--muted)] hover:text-[var(--ink)]"
-          >
-            All {posts.length} posts →
-          </Link>
-        )}
-      </section>
+      {posts.length > 0 ? (
+        <section>
+          <h2 className="mb-5 text-sm font-medium tracking-wide text-[var(--muted)] uppercase">
+            Recent writing
+          </h2>
+          <PostList posts={recent} />
+          {posts.length > recent.length && (
+            <Link
+              href="/blog"
+              className="mt-8 inline-block text-sm text-[var(--muted)] hover:text-[var(--ink)]"
+            >
+              All {posts.length} posts →
+            </Link>
+          )}
+        </section>
+      ) : (
+        // A site with no posts yet should read as deliberate, not broken.
+        <section className="rounded-lg border border-dashed border-[var(--line)] px-5 py-8 text-[var(--muted)]">
+          <p className="font-medium text-[var(--ink)]">No posts yet.</p>
+          <p className="mt-1.5 text-sm">
+            Run{" "}
+            <code className="rounded bg-[color-mix(in_oklch,var(--line)_45%,transparent)] px-1.5 py-0.5 text-[0.85em]">
+              npm run new -- &quot;My first post&quot;
+            </code>{" "}
+            to start one.
+          </p>
+        </section>
+      )}
     </div>
   );
 }
