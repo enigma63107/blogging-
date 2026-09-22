@@ -1,0 +1,178 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* next-themes toggles a `dark` class on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-body), Georgia, Cambria, serif;
+
+  --color-ink: oklch(0.21 0.01 260);
+  --color-muted: oklch(0.52 0.01 260);
+  --color-paper: oklch(0.99 0.002 260);
+  --color-line: oklch(0.91 0.004 260);
+  --color-accent: oklch(0.55 0.16 250);
+}
+
+:root {
+  --ink: var(--color-ink);
+  --muted: var(--color-muted);
+  --paper: var(--color-paper);
+  --line: var(--color-line);
+  --accent: var(--color-accent);
+}
+
+.dark {
+  --ink: oklch(0.92 0.006 260);
+  --muted: oklch(0.65 0.012 260);
+  --paper: oklch(0.17 0.008 260);
+  --line: oklch(0.29 0.01 260);
+  --accent: oklch(0.74 0.13 250);
+}
+
+html {
+  color-scheme: light;
+}
+.dark html,
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--accent) 22%, transparent);
+}
+
+a {
+  color: inherit;
+}
+
+/* Respect people who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Article typography ------------------------------------------------ */
+/* The two settings that matter most for reading: a ~68ch measure and body
+   text near 19px. Everything else here is adjustment around those. */
+.prose-article {
+  --tw-prose-body: var(--ink);
+  --tw-prose-headings: var(--ink);
+  --tw-prose-bold: var(--ink);
+  --tw-prose-quotes: var(--ink);
+  --tw-prose-links: var(--ink);
+  --tw-prose-counters: var(--muted);
+  --tw-prose-bullets: var(--line);
+  --tw-prose-hr: var(--line);
+  --tw-prose-quote-borders: var(--line);
+  --tw-prose-captions: var(--muted);
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;
+  line-height: 1.75;
+  max-width: 68ch;
+}
+
+.prose-article :is(h1, h2, h3, h4) {
+  font-family: var(--font-sans);
+  letter-spacing: -0.018em;
+  font-weight: 650;
+}
+
+.prose-article a {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--accent) 45%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+}
+.prose-article a:hover {
+  text-decoration-color: var(--accent);
+}
+
+.prose-article blockquote {
+  font-style: normal;
+  border-left-width: 2px;
+  color: var(--muted);
+}
+
+/* Anchor links appear on heading hover, stay reachable by keyboard. */
+.heading-anchor {
+  opacity: 0;
+  margin-left: 0.4em;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 400;
+}
+:is(h1, h2, h3, h4):hover > .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+/* ---- Code -------------------------------------------------------------- */
+.prose-article :not(pre) > code {
+  font-size: 0.875em;
+  background: color-mix(in oklch, var(--line) 45%, transparent);
+  padding: 0.15em 0.38em;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.prose-article :not(pre) > code::before,
+.prose-article :not(pre) > code::after {
+  content: none;
+}
+
+.prose-article pre {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  padding: 1rem 0;
+  overflow-x: auto;
+}
+.prose-article pre > code {
+  display: grid; /* so line highlights span the full width */
+  background: transparent;
+}
+.prose-article pre [data-line] {
+  padding: 0 1.1rem;
+  border-left: 2px solid transparent;
+}
+.prose-article pre [data-highlighted-line] {
+  background: color-mix(in oklch, var(--accent) 12%, transparent);
+  border-left-color: var(--accent);
+}
+
+/* rehype-pretty-code emits both palettes as CSS variables on each token, so a
+   theme switch is a variable swap with no duplicated markup. */
+.dark .prose-article pre,
+.dark .prose-article pre span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+[data-rehype-pretty-code-title] {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  padding: 0.5rem 1.1rem;
+  background: color-mix(in oklch, var(--line) 25%, transparent);
+}
+[data-rehype-pretty-code-title] + pre {
+  border-radius: 0 0 10px 10px;
+  margin-top: 0;
+}

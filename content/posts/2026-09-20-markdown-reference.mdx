@@ -1,0 +1,60 @@
+---
+title: "Everything this blog can render"
+slug: "formatting-reference"
+date: "2026-09-20"
+summary: "A reference post showing the formatting available when writing here."
+tags: ["meta", "reference"]
+draft: false
+---
+
+Keep this post around while you get used to the setup, then delete it. It is a
+working reference for every piece of formatting the site supports.
+
+## Headings get anchor links
+
+Hover any heading and a `#` appears — that is a permalink to the section, which
+makes it easy for people to link to one part of a long post.
+
+## Code
+
+Fenced blocks are syntax highlighted, with a copy button on hover. The title
+and highlighted-line annotations are optional:
+
+```ts title="src/lib/posts.ts" {3}
+export function getPost(slug: string) {
+  const posts = getAllPosts();
+  return posts.find((p) => p.slug === slug); // this line is highlighted
+}
+```
+
+Inline code such as `npm run dev` works too.
+
+## Callouts
+
+<Callout>
+  A note. Use this for asides that would break the flow as a paragraph.
+</Callout>
+
+<Callout type="warn">
+  A warning. Use sparingly, or people stop reading them.
+</Callout>
+
+## The usual Markdown
+
+- Bullet lists
+- With **bold**, *italic* and [links](https://example.com)
+
+1. Numbered lists
+2. Also work
+
+> Block quotes are set apart in muted text, not italics — italics at length are
+> hard to read.
+
+| Tables | Are supported |
+| ------ | ------------- |
+| via    | remark-gfm    |
+
+---
+
+That is the whole vocabulary. If you need something beyond it, write a React
+component and use it here directly.
