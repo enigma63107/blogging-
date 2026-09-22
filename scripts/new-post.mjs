@@ -15,7 +15,12 @@ const slug = title
   .replace(/^-|-$/g, "");
 
 const date = new Date().toISOString().slice(0, 10);
-const file = path.join(process.cwd(), "content", "posts", `${date}-${slug}.mdx`);
+const file = path.join(
+  process.cwd(),
+  "content",
+  "posts",
+  `${date}-${slug}.mdx`,
+);
 
 if (fs.existsSync(file)) {
   console.error(`Already exists: ${file}`);

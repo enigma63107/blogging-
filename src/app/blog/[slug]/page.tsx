@@ -100,7 +100,10 @@ export default async function PostPage({ params }: Props) {
       )}
 
       <nav className="mt-10">
-        <Link href="/blog" className="text-sm text-[var(--muted)] hover:text-[var(--ink)]">
+        <Link
+          href="/blog"
+          className="text-sm text-[var(--muted)] hover:text-[var(--ink)]"
+        >
           ← All writing
         </Link>
       </nav>

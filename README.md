@@ -14,15 +14,15 @@ filled in and `draft: true`. Write, set `draft: false`, commit, push.
 
 ### Frontmatter
 
-| Field     | Required | Notes                                                       |
-| --------- | -------- | ----------------------------------------------------------- |
-| `title`   | yes      | Build fails without it                                       |
-| `date`    | yes      | `YYYY-MM-DD`                                                 |
-| `slug`    | no       | Defaults from the filename. Set it to keep a URL stable      |
-| `summary` | no       | Used in the archive, the feed and social previews            |
-| `tags`    | no       | Array of strings; tag pages are generated from these         |
-| `updated` | no       | Shown on the post and used in the sitemap                    |
-| `draft`   | no       | `true` hides the post from production builds                 |
+| Field     | Required | Notes                                                   |
+| --------- | -------- | ------------------------------------------------------- |
+| `title`   | yes      | Build fails without it                                  |
+| `date`    | yes      | `YYYY-MM-DD`                                            |
+| `slug`    | no       | Defaults from the filename. Set it to keep a URL stable |
+| `summary` | no       | Used in the archive, the feed and social previews       |
+| `tags`    | no       | Array of strings; tag pages are generated from these    |
+| `updated` | no       | Shown on the post and used in the sitemap               |
+| `draft`   | no       | `true` hides the post from production builds            |
 
 Drafts render locally (`npm run dev`) and are excluded from the production
 build, archive, sitemap and RSS feed — so half-finished posts are safe to push.
@@ -33,13 +33,34 @@ build, archive, sitemap and RSS feed — so half-finished posts are safe to push
 npm install
 npm run dev     # http://localhost:3000, drafts visible
 npm run build   # production build, drafts excluded
+npm run check   # typecheck + lint + build, same as CI
+npm run format  # Prettier
 ```
 
-## Before deploying
+Node 22 (see `.nvmrc`). CI runs typecheck, lint, format check and build on every
+push, so a post with a bad date or a duplicate slug fails there rather than on
+the deploy.
 
-Edit `src/lib/site.ts` — the name, description, author and especially `url`,
-which every absolute link (RSS, sitemap, Open Graph) is built from. Or set
-`NEXT_PUBLIC_SITE_URL` in the host's environment.
+## Deploying
+
+The site is fully static, so any host works. Vercel is the least friction:
+
+1. Import this repo at [vercel.com/new](https://vercel.com/new). The framework,
+   build command and output directory are all detected — accept the defaults.
+2. Add an environment variable `NEXT_PUBLIC_SITE_URL` set to the final domain
+   (for example `https://dhruv.dev`), for Production and Preview.
+3. Deploy. Every push to the default branch redeploys; every pull request gets
+   its own preview URL.
+
+Custom domain: add it under Project → Settings → Domains and point the DNS
+record Vercel shows you at it.
+
+**`NEXT_PUBLIC_SITE_URL` is the one setting that matters.** RSS, the sitemap,
+canonical tags and social previews all build absolute URLs from it. Without it
+the site falls back to `https://example.com` and those links point nowhere.
+
+Also edit `src/lib/site.ts` for the site name, description, nav and social
+links.
 
 ## What is where
 

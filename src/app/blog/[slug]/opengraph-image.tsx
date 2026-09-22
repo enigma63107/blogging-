@@ -21,39 +21,39 @@ export default async function Image({
   const post = getPost(slug);
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        background: "#fbfbfd",
+        padding: "72px",
+        fontFamily: "sans-serif",
+      }}
+    >
+      <div style={{ display: "flex", fontSize: 28, color: "#6b7280" }}>
+        {site.name}
+      </div>
       <div
         style={{
-          width: "100%",
-          height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          background: "#fbfbfd",
-          padding: "72px",
-          fontFamily: "sans-serif",
+          fontSize: 68,
+          lineHeight: 1.15,
+          fontWeight: 700,
+          color: "#18181b",
+          letterSpacing: "-0.02em",
         }}
       >
-        <div style={{ display: "flex", fontSize: 28, color: "#6b7280" }}>
-          {site.name}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            fontSize: 68,
-            lineHeight: 1.15,
-            fontWeight: 700,
-            color: "#18181b",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          {post?.title ?? site.title}
-        </div>
-        <div style={{ display: "flex", fontSize: 26, color: "#6b7280" }}>
-          {post ? `${formatDate(post.date)} · ${post.readingMinutes} min read` : ""}
-        </div>
+        {post?.title ?? site.title}
       </div>
-    ),
+      <div style={{ display: "flex", fontSize: 26, color: "#6b7280" }}>
+        {post
+          ? `${formatDate(post.date)} · ${post.readingMinutes} min read`
+          : ""}
+      </div>
+    </div>,
     size,
   );
 }

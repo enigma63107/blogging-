@@ -19,7 +19,9 @@ function Callout({
       ? "border-amber-500/40 bg-amber-500/8"
       : "border-[var(--accent)]/35 bg-[color-mix(in_oklch,var(--accent)_8%,transparent)]";
   return (
-    <div className={`my-6 rounded-lg border px-4 py-3 font-sans text-[0.95rem] ${tone}`}>
+    <div
+      className={`my-6 rounded-lg border px-4 py-3 font-sans text-[0.95rem] ${tone}`}
+    >
       {children}
     </div>
   );
@@ -50,7 +52,11 @@ export function Mdx({ source }: { source: string }) {
               rehypeAutolinkHeadings,
               {
                 behavior: "append",
-                properties: { className: ["heading-anchor"], ariaHidden: true, tabIndex: -1 },
+                properties: {
+                  className: ["heading-anchor"],
+                  ariaHidden: true,
+                  tabIndex: -1,
+                },
                 content: { type: "text", value: "#" },
               },
             ],

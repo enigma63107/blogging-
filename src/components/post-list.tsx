@@ -3,9 +3,7 @@ import { formatDate, type Post } from "@/lib/posts";
 
 export function PostList({ posts }: { posts: Post[] }) {
   if (posts.length === 0) {
-    return (
-      <p className="text-[var(--muted)]">Nothing published here yet.</p>
-    );
+    return <p className="text-[var(--muted)]">Nothing published here yet.</p>;
   }
 
   return (

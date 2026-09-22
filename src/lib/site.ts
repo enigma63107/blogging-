@@ -7,6 +7,8 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com",
   author: {
     name: "Dhruv",
+    // Left blank deliberately: anything here is published on a public page and
+    // scraped. Add a contact address only if you want it crawled.
     email: "",
   },
   nav: [
