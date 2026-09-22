@@ -21,6 +21,7 @@
   --paper: var(--color-paper);
   --line: var(--color-line);
   --accent: var(--color-accent);
+  --code-bg: oklch(0.975 0.003 260);
 }
 
 .dark {
@@ -29,6 +30,7 @@
   --paper: oklch(0.17 0.008 260);
   --line: oklch(0.29 0.01 260);
   --accent: oklch(0.74 0.13 250);
+  --code-bg: oklch(0.205 0.009 260);
 }
 
 html {
@@ -79,6 +81,10 @@ a {
   --tw-prose-hr: var(--line);
   --tw-prose-quote-borders: var(--line);
   --tw-prose-captions: var(--muted);
+  /* Typography ships a dark pre background in both themes; the code slab needs
+     to follow our own tokens instead. */
+  --tw-prose-pre-bg: transparent;
+  --tw-prose-pre-code: var(--ink);
   font-family: var(--font-serif);
   font-size: 1.1875rem;
   line-height: 1.75;
@@ -134,6 +140,8 @@ a {
 }
 
 .prose-article pre {
+  background: var(--code-bg);
+  color: var(--ink);
   border: 1px solid var(--line);
   border-radius: 10px;
   font-size: 0.875rem;
@@ -172,7 +180,10 @@ a {
   padding: 0.5rem 1.1rem;
   background: color-mix(in oklch, var(--line) 25%, transparent);
 }
-[data-rehype-pretty-code-title] + pre {
+[data-rehype-pretty-code-title] + .code-block {
+  margin-top: 0;
+}
+[data-rehype-pretty-code-title] + .code-block > pre {
   border-radius: 0 0 10px 10px;
   margin-top: 0;
 }

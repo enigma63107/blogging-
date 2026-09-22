@@ -19,7 +19,7 @@ export function CodeBlock(props: ComponentPropsWithoutRef<"pre">) {
   }
 
   return (
-    <div className="group relative">
+    <div className="code-block group relative">
       <pre {...props} ref={ref} />
       <button
         type="button"
