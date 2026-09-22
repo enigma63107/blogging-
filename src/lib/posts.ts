@@ -93,6 +93,20 @@ export function getPost(slug: string): Post | undefined {
   return getAllPosts().find((p) => p.slug === slug);
 }
 
+/**
+ * Posts are sorted newest-first, so the *next* entry in the list is the older
+ * post. Named from the reader's point of view rather than the array's.
+ */
+export function getAdjacentPosts(slug: string): {
+  older?: Post;
+  newer?: Post;
+} {
+  const posts = getAllPosts();
+  const i = posts.findIndex((p) => p.slug === slug);
+  if (i === -1) return {};
+  return { newer: posts[i - 1], older: posts[i + 1] };
+}
+
 export function getAllTags(): { tag: string; count: number }[] {
   const counts = new Map<string, number>();
   for (const post of getAllPosts()) {

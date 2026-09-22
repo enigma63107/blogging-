@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPost, formatDate } from "@/lib/posts";
+import {
+  getAllPosts,
+  getPost,
+  getAdjacentPosts,
+  formatDate,
+} from "@/lib/posts";
 import { Mdx } from "@/components/mdx";
+import { PostNav } from "@/components/post-nav";
 import { site } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -43,6 +49,8 @@ export default async function PostPage({ params }: Props) {
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) notFound();
+
+  const { older, newer } = getAdjacentPosts(slug);
 
   // JSON-LD gives search engines the author, dates and headline explicitly
   // rather than making them infer it from the markup.
@@ -98,6 +106,8 @@ export default async function PostPage({ params }: Props) {
           ))}
         </div>
       )}
+
+      <PostNav older={older} newer={newer} />
 
       <nav className="mt-10">
         <Link

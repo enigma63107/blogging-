@@ -19,5 +19,4 @@ export const site = {
     github: "",
     x: "",
   },
-  postsPerPage: 10,
 } as const;
